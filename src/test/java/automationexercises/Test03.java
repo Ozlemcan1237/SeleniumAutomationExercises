@@ -40,28 +40,28 @@ public class Test03 {
     }
     @Test
     public void test01(){
-        //3
-        WebElement logo = driver.findElement(By.xpath("//*[@src='/static/images/home/logo.png']"));
+        //3  Ana sayfanın başarıyla göründüğünü doğrulayın
+        WebElement logo = driver.findElement(By.cssSelector("html[lang='en']"));
         Assert.assertTrue(logo.isDisplayed());
 
-        //4
+        //4 'Kaydol / Giriş Yap' düğmesine tıklayın
         driver.findElement(By.xpath("//*[@href='/login']")).click();
 
-        //5
+        //5 "Hesabınıza giriş yapın"ın göründüğünü doğrulayın
         WebElement loggedYazisi = driver.findElement(By.xpath("//*[text()='Login to your account']"));
         Assert.assertTrue(loggedYazisi.isDisplayed());
 
-        //6
+        //6 Yanlış e-posta adresi ve şifre girin
         WebElement email = driver.findElement(By.xpath("//input[@data-qa='login-email']"));
-        email.sendKeys("team12@gmail.com");
+        email.sendKeys("team12@gma.com");
         WebElement pwd = driver.findElement(By.xpath("//input[@data-qa='login-password']"));
         pwd.sendKeys("123");
 
-        //7
+        //7 'Giriş' düğmesine tıklayın
         WebElement loginButton = driver.findElement(By.xpath("//*[@data-qa='login-button']"));
         loginButton.click();
 
-        //8
+        //8 'E-postanız veya şifreniz yanlış!' hatasını doğrulayın. görünür
         WebElement yanlisYazisi = driver.findElement(By.xpath("//*[text()='Your email or password is incorrect!']"));
         Assert.assertTrue(yanlisYazisi.isDisplayed());
     }
