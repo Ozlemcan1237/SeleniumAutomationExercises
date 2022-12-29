@@ -43,8 +43,9 @@ public class Test05 {
         //6. Enter name and already registered email address //7. Click 'Signup' button
         driver.findElement(By.xpath("//*[@placeholder='Name']")).sendKeys("Ali", Keys.TAB,"team1234@gmail.com",Keys.ENTER);
 
-        //8. Verify error 'Email Address already exist!' is visible
-
+        //8. 'E-posta Adresi zaten mevcut!' hatasını doğrulayın. görünür
+        WebElement epostaKayıtlı = driver.findElement(By.xpath("//*[text()='Email Address already exist!']"));
+        Assert.assertTrue(epostaKayıtlı.isDisplayed());
     }
 
     @After
