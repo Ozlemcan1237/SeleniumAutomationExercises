@@ -44,8 +44,8 @@ public class Test05 {
         driver.findElement(By.xpath("//*[@placeholder='Name']")).sendKeys("Ali", Keys.TAB,"team1234@gmail.com",Keys.ENTER);
 
         //8. 'E-posta Adresi zaten mevcut!' hatasını doğrulayın. görünür
-        WebElement epostaKayıtlı = driver.findElement(By.xpath("//*[text()='Email Address already exist!']"));
-        Assert.assertTrue(epostaKayıtlı.isDisplayed());
+        WebElement epostaKayitli = driver.findElement(By.xpath("//*[text()='Email Address already exist!']"));
+        Assert.assertTrue(epostaKayitli.isDisplayed());
     }
 
     @After
@@ -53,11 +53,3 @@ public class Test05 {
         driver.quit();
     }
 }
-//1. Tarayıcıyı başlatın
-//2. 'http://automationexercise.com' URL'sine gidin
-//3. Ana sayfanın başarıyla göründüğünü doğrulayın
-//4. 'Kaydol / Giriş Yap' düğmesine tıklayın
-//5. 'Yeni Kullanıcı Kaydı!'nı doğrulayın! görünür
-//6. Adı ve kayıtlı e-posta adresini girin
-//7. 'Kaydol' düğmesini tıklayın
-//8. 'E-posta Adresi zaten mevcut!' hatasını doğrulayın. görünür

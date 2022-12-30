@@ -30,7 +30,7 @@ public class Test07 {
 
     @After
     public void tearDown() {
-        driver.close();
+        driver.quit();
     }
 
     @Test
@@ -46,8 +46,3 @@ public class Test07 {
 
     }
 }
-//1. Tarayıcıyı başlatın
-//2. 'http://automationexercise.com' URL'sine gidin
-//3. Ana sayfanın başarıyla göründüğünü doğrulayın
-//4. 'Test Durumları' düğmesine tıklayın
-//5. Kullanıcının test senaryoları sayfasına başarıyla yönlendirildiğini doğrulayın
