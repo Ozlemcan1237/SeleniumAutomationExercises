@@ -45,8 +45,6 @@ public class Test11 {
 
         //5. Scroll down to footer
         //5. Altbilgiye doğru aşağı kaydırın
-        //WebElement footer = driver.findElement(By.xpath("//*[@class='footer-bottom']"));
-
 
 //           JavascriptExecutor js = (JavascriptExecutor) driver; //javascript classi
 //           js.executeScript("window.scroll(0,10000)"); //console
