@@ -74,13 +74,18 @@ public class Test12 {
         System.out.println("dogruUrunSayisi = " + dogruUrunSayisi);
 
         //total price
-//        List<WebElement> total = driver.findElements(By.xpath("//*[@class='cart_total_price']"));
-//
-//        System.out.println("total = " + total);
+       String fiyat1 = expectedFiyat.replaceAll("\\D","");
+       int fiyat2 = Integer.parseInt(fiyat1);
+
+
+        String guncelfuyat1 = expectedFiyat2.replaceAll("\\D","");
+        int fiyatguncel = Integer.parseInt(guncelfuyat1);
+
+        System.out.println(fiyat2+fiyatguncel);
     }
     @After
     public void tearDown(){
-        driver.quit();
+       driver.quit();
     }
 }
 //         5. İlk ürünün üzerine gelin ve 'Sepete ekle'yi tıklayın
