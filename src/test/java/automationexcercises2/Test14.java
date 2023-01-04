@@ -27,7 +27,7 @@ public class Test14 {
         driver.get("http://automationexercise.com");
     }
     @Test
-    public void test01(){
+    public void test01() throws InterruptedException {
         //3. Verify that home page is visible successfully
         //3. Ana sayfanın başarıyla göründüğünü doğrulayın
         WebElement anaSayfa = driver.findElement(By.xpath("(//html[@lang='en'])[1]"));
@@ -87,32 +87,63 @@ public class Test14 {
 
         //14. Verify Address Details and Review Your Order
         //14. Adres Ayrıntılarını Doğrulayın ve Siparişinizi İnceleyin
+        WebElement adressDetails = driver.findElement(By.xpath("(//h2)[1]"));
+        Assert.assertTrue(adressDetails.isDisplayed());
+        WebElement reviewYourOrder = driver.findElement(By.xpath("(//h2)[2]"));
+        Assert.assertTrue(reviewYourOrder.isDisplayed());
+
+        String deliveryAdress = driver.findElement(By.xpath("//*[@class='address item box']")).getText();
+        System.out.println("deliveryAdress = " + deliveryAdress);
+        String expected = "YOUR DELIVERY ADDRESS\n" +
+                ". aa aa\n" +
+                "aa\n" +
+                "aa\n" +
+                "aa\n" +
+                "aa aa aa\n" +
+                "Canada\n" +
+                "123456789";
+        Assert.assertEquals(expected,deliveryAdress);
+
+        String billingAdress = driver.findElement(By.xpath("//*[@class='address alternate_item box']")).getText();
+        System.out.println("billingAdress = " + billingAdress);
+        String expected1 = "YOUR BILLING ADDRESS\n" +
+                ". aa aa\n" +
+                "aa\n" +
+                "aa\n" +
+                "aa\n" +
+                "aa aa aa\n" +
+                "Canada\n" +
+                "123456789";
+        Assert.assertEquals(expected1,billingAdress);
 
 
         //15. Enter description in comment text area and click 'Place Order'
         //15. Açıklama metin alanına açıklamayı girin ve 'Sipariş Ver'i tıklayın
-
+        driver.findElement(By.cssSelector("textarea[class='form-control']")).sendKeys("Siteniz bug larla dolu buraya ulasmak zor oldu",Keys.ENTER);
+        driver.findElement(By.xpath("//*[.='Place Order']")).click();
 
         //16. Enter payment details: Name on Card, Card Number, CVC, Expiration date
         //16. Ödeme ayrıntılarını girin: Karttaki Ad, Kart Numarası, CVC, Son Kullanma Tarihi
-
-
         //17. Click 'Pay and Confirm Order' button
         //17. 'Öde ve Siparişi Onayla' düğmesine tıklayın
-
+        driver.findElement(By.cssSelector("input[class='form-control']")).sendKeys("12",Keys.TAB,"23",Keys.TAB,"34",Keys.TAB,"45",Keys.TAB,"56");
+        driver.findElement(By.xpath("//*[@id='submit']")).click();
 
         //18. Verify success message 'Your order has been placed successfully!'
         //18. Başarı mesajını doğrulayın 'Siparişiniz başarıyla verildi!'
-
+        String actual = driver.findElement(By.xpath("(//*[@class='alert-success alert'])[1]")).getText();
+        String expected2 = "Your order has been placed successfully!";
+        Assert.assertTrue(expected2.contains(actual));
 
         //19. Click 'Delete Account' button
         //19. 'Hesabı Sil' düğmesini tıklayın
-
+        driver.findElement(By.cssSelector("a[href='/delete_account']")).click();
 
         //20. Verify 'ACCOUNT DELETED!' and click 'Continue' button
         //20. 'HESAP SİLİNDİ!' ve 'Devam Et' düğmesini tıklayın
-
-
+        WebElement hesapSilindi = driver.findElement(By.xpath("//*[text()='Account Deleted!']"));
+        Assert.assertTrue(hesapSilindi.isDisplayed());
+        driver.findElement(By.xpath("//*[@class='btn btn-primary']")).click();
     }
 
     @After

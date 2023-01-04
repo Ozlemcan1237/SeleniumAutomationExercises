@@ -51,9 +51,14 @@ public class Test13 {
         driver.findElement(By.xpath("(//*[@href='/view_cart'])[2]")).click();
 
         //9. Verify that product is displayed in cart page with exact quantity
-        String actualFiyat = driver.findElement(By.xpath("//*[@class='cart_total_price']")).getText();
-        String expectedFiyat = "Rs. 9200";
-        Assert.assertEquals(expectedFiyat,actualFiyat);
+//        String actualFiyat = driver.findElement(By.xpath("//*[@class='cart_total_price']")).getText();
+//        String expectedFiyat = "Rs. 9200";
+//        Assert.assertEquals(expectedFiyat,actualFiyat);
+
+        WebElement miktarKontrol = driver.findElement(By.cssSelector("button[class='disabled']"));
+        String ss = miktarKontrol.getText();
+        int ssint =Integer.parseInt(ss);
+        Assert.assertEquals(ssint,4);
     }
 
     @After
