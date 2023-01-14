@@ -1,87 +1,62 @@
 package seleniumstudy;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
+import utilities.TestBase;
 
-import java.time.Duration;
 
-public class Study_13 {
-
-    WebDriver driver;
-
-    @Before
-    public void setUp() {
-        WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
-    }
-
-    @After
-    public void tearDown() throws InterruptedException {
-        Thread.sleep(2000);
-        driver.quit();
-    }
+public class Study_13 extends TestBase {
     @Test
-    public void test01() throws InterruptedException {
-
-        //sahibinden.com a gidin
-        driver.get("https://sahibinden.com");
-
-        //anasayfada oldugunuzu dogrulayin
-        WebElement anaSayfa = driver.findElement(By.xpath("(//html[@lang='tr'])[1]"));
-        Assert.assertTrue(anaSayfa.isDisplayed());
-
+    public void test01() {
+        //sahibinden.coma gidin
+        driver.get("https://www.sahibinden.com");
+        //anasayfada oldugunuzu
+        String actualUrl = driver.getCurrentUrl();
+        String expectedUrl = "https://www.sahibinden.com/";
+        Assert.assertEquals(expectedUrl, actualUrl);
+        if (driver.findElement(By.xpath("//*[@id='onetrust-reject-all-handler']")).isDisplayed()) {
+            driver.findElement(By.xpath("//*[@id='onetrust-reject-all-handler']")).click();
+        }
         //detayli arama tiklayin
         driver.findElement(By.xpath("//a[contains(text(),'Detaylı Arama')]")).click();
-
         //detayli arama sayfasina geldiginizi dogrulatin
         String actualdetayliTitle = driver.getCurrentUrl();
         String expecteddetayliTitle = "https://www.sahibinden.com/arama/detayli";
         Assert.assertEquals(expecteddetayliTitle, actualdetayliTitle);
-
         //emlak-konut-satilik seceneklerini secip
         driver.findElement(By.xpath("(//span[text()='Emlak'])[1]")).click();
-        Thread.sleep(2000);
+        waitFor(1);
         driver.findElement(By.xpath("//span[text()='Konut']")).click();
-        Thread.sleep(2000);
+        waitFor(1);
         driver.findElement(By.xpath("//span[text()='Satılık']")).click();
-        Thread.sleep(2000);
+        waitFor(1);
         driver.findElement(By.xpath("//span[text()='Daire']")).click();
-
         //altta cikan butun filtre seceneklerine en az bir filtre degeri girip en sonundaki arama yap tusuna tiklayin
-        detayliArama("Ankara", "Yenimahalle", "Yeni Batı Mh.");
+        detayliArama("Yalova", "Armutlu", "Bayır Mh.");
         detayli_Arama_fiyat("100000","700000","TL");
-//        scrollDownActions();
-//        scrollDownActions();
+        scrollDownActions();
+        scrollDownActions();
         detayli_Arama_cephe("Kuzey"," Batı");
         WebElement aramayap = driver.findElement(By.xpath("(//button[normalize-space()='Arama Yap'])[1]"));
-//        doubleClick(aramayap);
+        doubleClick(aramayap);
         //aramayap.click();
         //cikan sonuc sayisini veya sonuc yoksa bunu bildiren yaziyi konsolda yazdirin
         String sonuc = driver.findElement(By.xpath("//div[@class='result-text']")).getText();
         System.out.println(sonuc);
     }
-
-
-    public void detayliArama(String il, String ilce, String mah) throws InterruptedException {
+    public void detayliArama(String il, String ilce, String mah) {
         WebElement Adres1 = driver.findElement(By.xpath("(//*[@class='faceted-select'])[1]"));
         Adres1.click();
         WebElement ilyaz = driver.findElement(By.xpath("//input[@placeholder='İl']"));
         ilyaz.sendKeys(il);
-        Thread.sleep(2000);
+        waitFor(2);
         driver.findElement(By.xpath("//a[contains(text(),'" + il + "')]")).click();
         WebElement Adres2 = driver.findElement(By.xpath("(//*[@class='faceted-select'])[2]"));
         Adres2.click();
-        Thread.sleep(2000);
+        waitFor(2);
         WebElement semtyaz = driver.findElement(By.xpath("//input[@placeholder='İlçe']"));
         semtyaz.sendKeys(ilce);
         driver.findElement(By.xpath("//a[contains(text(),'" + ilce + "')]")).click();
@@ -91,7 +66,7 @@ public class Study_13 {
         WebElement mahlyaz = driver.findElement(By.xpath("//input[@placeholder='Semt / Mahalle']"));
         mahlyaz.sendKeys(mah);
         driver.findElement(By.xpath("//a[normalize-space()='" + mah + "']")).click();
-        Thread.sleep(2000);
+        waitFor(2);
         driver.findElement(By.xpath("//a[@class='collapse-pane']")).click();
     }
     public void detayli_Arama_fiyat(String min,String max,String parabirimi){
@@ -109,7 +84,7 @@ public class Study_13 {
         Actions actions=new Actions(driver);
         WebElement ddm = driver.findElement(By.xpath("//a[normalize-space()='Cephe']"));
         actions.moveToElement(ddm).perform();
-        actions.doubleClick();
+        doubleClick(ddm);
         for (String w : cephe) {
             if (w == cephe[0]) {
                 driver.findElement(By.xpath("//*[contains(text(),'"+cephe[0]+"')]")).click();
