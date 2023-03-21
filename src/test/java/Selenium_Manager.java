@@ -1,5 +1,5 @@
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.manager.SeleniumManager;
 
 public class Selenium_Manager {
@@ -7,7 +7,7 @@ public class Selenium_Manager {
     public static void main(String[] args) {
 
         SeleniumManager.getInstance().getDriverPath("chromedriver");
-        ChromeDriver driver = new ChromeDriver();
+        WebDriver driver = new ChromeDriver();
         driver.get("https://techproeducation.com");
         driver.quit();
 
